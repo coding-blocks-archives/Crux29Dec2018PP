@@ -19,12 +19,14 @@ public class Pattern9 {
 		while (row <= n) {
 
 			// work
+			// first work for spaces
 			int csp = 1;
 			while (csp <= nsp) {
 				System.out.print(" ");
 				csp = csp + 1;
 			}
 
+			// then work for stars
 			int cst = 1;
 			while (cst <= nst) {
 				System.out.print("*");

@@ -19,7 +19,7 @@ public class ArrayOps {
 
 		// display(takeInput());
 
-		int[] arr = { 10, 20, 30, 40, 50, 60 };
+		int[] arr = { 50, 40, 30, 20, 10 };
 		// int ans = maximum(arr);
 		// System.out.println(ans);
 		// int item = scn.nextInt();
@@ -27,8 +27,15 @@ public class ArrayOps {
 		// System.out.println(binarySearch(arr, item));
 
 		// reverse(arr);
-		int[] ans = rotate(arr, -100);
-		display(ans);
+		// int[] ans = rotate(arr, -100);
+
+		// int[] inv = inverse(arr);
+		// display(inv);
+
+		// bubbleSort(arr);
+//		selectionSort(arr);
+		insertionSort(arr);
+		display(arr);
 
 	}
 
@@ -153,6 +160,84 @@ public class ArrayOps {
 	}
 
 	public static int[] inverse(int[] arr) {
+
+		int[] inv = new int[arr.length];
+
+		for (int i = 0; i < inv.length; i++) {
+			inv[arr[i]] = i;
+		}
+
+		return inv;
+
+	}
+
+	public static void bubbleSort(int[] arr) {
+
+		int n = arr.length;
+
+		for (int counter = 0; counter < n - 1; counter++) {
+
+			for (int j = 0; j < n - 1 - counter; j++) {
+
+				if (arr[j] > arr[j + 1]) {
+
+					int temp = arr[j];
+					arr[j] = arr[j + 1];
+					arr[j + 1] = temp;
+
+					// int a = arr[j];
+					// int b = arr[j + 1];
+					//
+					// int temp = a;
+					// a = b;
+					// b = temp;
+				}
+			}
+
+		}
+
+	}
+
+	public static void selectionSort(int[] arr) {
+
+		int n = arr.length;
+
+		for (int counter = 0; counter < n - 1; counter++) {
+
+			int min = counter;
+
+			for (int j = counter + 1; j <= n - 1; j++) {
+
+				if (arr[j] < arr[min]) {
+					min = j;
+				}
+			}
+
+			int temp = arr[counter];
+			arr[counter] = arr[min];
+			arr[min] = temp;
+
+		}
+
+	}
+
+	public static void insertionSort(int[] arr) {
+
+		int n = arr.length;
+
+		for (int counter = 1; counter <= n - 1; counter++) {
+
+			int temp = arr[counter];
+
+			int j = counter - 1;
+
+			while (j >= 0 && arr[j] > temp) {
+				arr[j + 1] = arr[j];
+				j--;
+			}
+
+			arr[j + 1] = temp;
+		}
 
 	}
 

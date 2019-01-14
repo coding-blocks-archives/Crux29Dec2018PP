@@ -19,7 +19,7 @@ public class ArrayOps {
 
 		// display(takeInput());
 
-		int[] arr = { 50, 40, 30, 20, 10 };
+		// int[] arr = { 50, 40, 30, 20, 10 };
 		// int ans = maximum(arr);
 		// System.out.println(ans);
 		// int item = scn.nextInt();
@@ -33,10 +33,22 @@ public class ArrayOps {
 		// display(inv);
 
 		// bubbleSort(arr);
-//		selectionSort(arr);
-		insertionSort(arr);
-		display(arr);
+		// selectionSort(arr);
+		// insertionSort(arr);
+		// display(arr);
 
+		int[] arr = new int[1000000];
+
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = i;
+		}
+
+		long start = System.currentTimeMillis();
+		bubbleSort(arr);
+		long end = System.currentTimeMillis();
+		
+		
+		System.out.println(end - start);
 	}
 
 	public static int[] takeInput() {
@@ -175,6 +187,8 @@ public class ArrayOps {
 
 		int n = arr.length;
 
+		boolean flag = true;
+
 		for (int counter = 0; counter < n - 1; counter++) {
 
 			for (int j = 0; j < n - 1 - counter; j++) {
@@ -185,14 +199,12 @@ public class ArrayOps {
 					arr[j] = arr[j + 1];
 					arr[j + 1] = temp;
 
-					// int a = arr[j];
-					// int b = arr[j + 1];
-					//
-					// int temp = a;
-					// a = b;
-					// b = temp;
+					flag = false;
 				}
 			}
+
+			if (flag)
+				break;
 
 		}
 

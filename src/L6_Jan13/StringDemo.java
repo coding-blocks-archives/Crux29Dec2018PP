@@ -72,9 +72,11 @@ public class StringDemo {
 
 		long start = System.currentTimeMillis();
 
-		String str = "";
+		 String str = "";
+		StringBuilder sb = new StringBuilder();
 		for (int i = 1; i <= 100000; i++) {
-			str = str + i;
+			 str = str + i;
+//			sb.append(i);
 		}
 
 		System.out.println(System.currentTimeMillis() - start);

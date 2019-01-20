@@ -18,7 +18,9 @@ public class Recursion {
 		// System.out.println(fibonacci(200));
 		int[] arr = { 10, 20, 30, 40, 30 };
 		// displayRevArr(arr, 0);
-		System.out.println(firstOccurence(arr, 0, 30));
+		// System.out.println(firstOccurence(arr, 0, 30));
+		System.out.println(lastOccurence(arr, 0, 30));
+		System.out.println(lastOccurence2(arr, 0, 60, -1));
 
 	}
 
@@ -141,6 +143,67 @@ public class Recursion {
 
 	public static int lastOccurence(int[] arr, int vidx, int item) {
 
+		if (vidx == arr.length) {
+			return -1;
+		}
+
+		int rr = lastOccurence(arr, vidx + 1, item);
+
+		if (rr == -1 && arr[vidx] == item) {
+			return vidx;
+		}
+
+		return rr;
+
+	}
+
+	public static int lastOccurence2(int[] arr, int vidx, int item, int val) {
+
+		if (vidx == arr.length) {
+			return val;
+		}
+
+		if (arr[vidx] == item) {
+			val = vidx;
+		}
+
+		return lastOccurence2(arr, vidx + 1, item, val);
+
+	}
+
+	public static int maximum(int[] arr, int vidx) {
+
+		if (vidx == arr.length - 1) {
+			return arr[vidx];
+		}
+
+		int rr = maximum(arr, vidx + 1);
+
+		if (arr[vidx] > rr) {
+			return arr[vidx];
+		} else {
+			return rr;
+		}
+
+	}
+
+	public static int[] findAllOccurences(int[] arr, int vidx, int item, int count) {
+
+		if (vidx == arr.length) {
+			int[] br = new int[count];
+			return br;
+		}
+
+		int[] rr;
+		if (arr[vidx] == item) {
+			rr = findAllOccurences(arr, vidx + 1, item, count + 1);
+			rr[count] = vidx;
+		} else {
+			rr = findAllOccurences(arr, vidx + 1, item, count);
+
+		}
+
+		return rr;
 	}
 
 }

@@ -1,4 +1,4 @@
-package doubt_class;
+package Assignments.Feb3;
 
 import java.util.*;
 

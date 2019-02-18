@@ -1,16 +1,15 @@
-package doubt_class;
+package Assignments.Feb3;
 
 import java.util.ArrayList;
 
 public class CodesOfString {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 		String str = "1125";
 		System.out.println(codes(str));
 
-//		System.out.println();
+		// System.out.println();
 
 	}
 

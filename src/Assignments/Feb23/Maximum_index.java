@@ -1,4 +1,4 @@
-package doubt_class;
+package Assignments.Feb23 ;
 
 public class Maximum_index {
 

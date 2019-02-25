@@ -12,7 +12,7 @@ import L12_Feb16.Queue;
 public class DynamicQueue extends Queue {
 
 	@Override
-	public void enqueue(int item) {
+	public void enqueue(int item) throws Exception {
 
 		if (isFull()) {
 
@@ -31,11 +31,7 @@ public class DynamicQueue extends Queue {
 
 		}
 
-		try {
-			super.enqueue(item);
-		} catch (Exception e) {
-
-		}
+		super.enqueue(item);
 
 	}
 }

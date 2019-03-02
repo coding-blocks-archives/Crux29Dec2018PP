@@ -16,17 +16,48 @@ public class Client {
 		list.addLast(20);
 		list.addLast(30);
 		list.addLast(40);
+		list.addLast(50);
+		list.addLast(60);
 
 		list.display();
+		//
+		// System.out.println(list.getAt(2));
+		// System.out.println(list.getFirst());
+		// System.out.println(list.getLast());
+		//
+		// System.out.println(list.removeFirst());
+		// list.display();
+		// list.addFirst(200);
+		// System.out.println(list.removeLast());
+		// list.display();
 
-		System.out.println(list.getAt(2));
-		System.out.println(list.getFirst());
-		System.out.println(list.getLast());
+		// list.reverseDataIter();
+		//
+		// list.display();
+		//
+		// list.reversePointerIter();
+		// list.display();
+		//
+		// list.reversePointerRec();
+		// list.display();
 
-		System.out.println(list.removeFirst());
+		list.fold();
 		list.display();
-		list.addFirst(200);
-		System.out.println(list.removeLast());
+
+		list.addLast(900);
+		list.addLast(800);
+		list.addLast(700);
 		list.display();
+
+		System.out.println(list.mid());
+		System.out.println(list.kthFromLast(3));
+
+		list.display();
+		list.kReverse(3);
+		list.display();
+
+		list.addLast(0);
+		list.display();
+
 	}
 }

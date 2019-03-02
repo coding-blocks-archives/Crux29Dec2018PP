@@ -18,14 +18,17 @@ public class LinkedList {
 	private Node tail;
 	private int size;
 
+	// O(1)
 	public int size() {
 		return this.size;
 	}
 
+	// O(1)
 	public boolean isEmpty() {
 		return this.size == 0;
 	}
 
+	// O(1)
 	public int getFirst() throws Exception {
 
 		if (isEmpty()) {
@@ -35,6 +38,7 @@ public class LinkedList {
 		return this.head.data;
 	}
 
+	// O(1)
 	public int getLast() throws Exception {
 
 		if (isEmpty()) {
@@ -44,6 +48,7 @@ public class LinkedList {
 		return this.tail.data;
 	}
 
+	// O(n)
 	public int getAt(int idx) throws Exception {
 		if (isEmpty()) {
 			throw new Exception("LL is Empty.");
@@ -63,6 +68,7 @@ public class LinkedList {
 
 	}
 
+	// O(n)
 	private Node getNodeAt(int idx) throws Exception {
 
 		if (isEmpty()) {
@@ -83,6 +89,7 @@ public class LinkedList {
 
 	}
 
+	// O(n)
 	public void display() {
 
 		System.out.println("-----------------");
@@ -97,6 +104,7 @@ public class LinkedList {
 		System.out.println("-----------------");
 	}
 
+	// O(1)
 	public void addLast(int item) {
 
 		// create a new node
@@ -120,6 +128,7 @@ public class LinkedList {
 
 	}
 
+	// O(1)
 	public void addFirst(int item) {
 
 		// create a new node
@@ -142,6 +151,7 @@ public class LinkedList {
 
 	}
 
+	// O(n)
 	public void addAt(int idx, int item) throws Exception {
 
 		if (idx < 0 || idx > this.size) {
@@ -172,6 +182,7 @@ public class LinkedList {
 
 	}
 
+	// O(1)
 	public int removeFirst() throws Exception {
 
 		if (this.isEmpty()) {
@@ -193,6 +204,7 @@ public class LinkedList {
 
 	}
 
+	// O(n)
 	public int removeLast() throws Exception {
 
 		if (this.isEmpty()) {
@@ -218,6 +230,7 @@ public class LinkedList {
 
 	}
 
+	// O(n)
 	public int removeAt(int idx) throws Exception {
 
 		if (this.isEmpty()) {
@@ -248,4 +261,270 @@ public class LinkedList {
 
 	}
 
+	public void reverseDataIter() throws Exception {
+
+		int left = 0;
+		int right = this.size - 1;
+
+		while (left < right) {
+
+			Node ln = getNodeAt(left);
+			Node rn = getNodeAt(right);
+
+			int temp = ln.data;
+			ln.data = rn.data;
+			rn.data = temp;
+
+			left++;
+			right--;
+
+		}
+	}
+
+	public void reversePointerIter() {
+
+		Node prev = this.head;
+		Node curr = prev.next;
+
+		while (curr != null) {
+
+			Node ahead = curr.next;
+
+			curr.next = prev;
+
+			prev = curr;
+			curr = ahead;
+
+		}
+
+		// head & tail swap
+		Node temp = this.head;
+		this.head = this.tail;
+		this.tail = temp;
+
+		this.tail.next = null;
+
+	}
+
+	public void reversePointerRec() {
+		reversePointerRec(this.head, this.head.next);
+
+		Node temp = this.head;
+		this.head = this.tail;
+		this.tail = temp;
+
+		this.tail.next = null;
+
+	}
+
+	private void reversePointerRec(Node prev, Node curr) {
+
+		if (curr == null) {
+			return;
+		}
+
+		reversePointerRec(curr, curr.next);
+
+		curr.next = prev;
+
+	}
+
+	public void reverseDataRecReturn() {
+		reverseDataRecReturn(this.head, this.head, 0);
+	}
+
+	private Node reverseDataRecReturn(Node left, Node right, int count) {
+
+		if (right == null) {
+			return left;
+		}
+
+		left = reverseDataRecReturn(left, right.next, count + 1);
+
+		// swap
+		if (count >= this.size / 2) {
+			int temp = left.data;
+			left.data = right.data;
+			right.data = temp;
+		}
+
+		return left.next;
+
+	}
+
+	private class HeapMover {
+		Node left;
+	}
+
+	public void reverseDataRecHeap() {
+
+		HeapMover mover = new HeapMover();
+		mover.left = this.head;
+
+		reverseDataRecHeap(mover, this.head, 0);
+
+	}
+
+	private void reverseDataRecHeap(HeapMover mover, Node right, int count) {
+
+		if (right == null) {
+			return;
+		}
+
+		reverseDataRecHeap(mover, right.next, count + 1);
+
+		// swap
+		if (count >= this.size / 2) {
+			int temp = mover.left.data;
+			mover.left.data = right.data;
+			right.data = temp;
+
+			mover.left = mover.left.next;
+
+		}
+	}
+
+	public void fold() {
+
+		HeapMover mover = new HeapMover();
+		mover.left = this.head;
+
+		// fold(mover, this.head, 0);
+		foldReturn(this.head, this.head, 0);
+	}
+
+	private void fold(HeapMover mover, Node right, int count) {
+
+		if (right == null) {
+			return;
+		}
+
+		fold(mover, right.next, count + 1);
+
+		if (count > size / 2) {
+			Node ahead = mover.left.next;
+			mover.left.next = right;
+			right.next = ahead;
+
+			mover.left = ahead;
+		}
+
+		if (count == size / 2) {
+			this.tail = right;
+			this.tail.next = null;
+		}
+
+	}
+
+	private Node foldReturn(Node left, Node right, int count) {
+
+		if (right == null) {
+			return left;
+		}
+
+		left = foldReturn(left, right.next, count + 1);
+
+		if (count > size / 2) {
+
+			Node ahead = left.next;
+
+			left.next = right;
+			right.next = ahead;
+
+			return ahead;
+		}
+
+		if (count == size / 2) {
+			this.tail = right;
+			this.tail.next = null;
+		}
+
+		return null;
+
+	}
+
+	public int mid() {
+
+		Node slow = this.head;
+		Node fast = this.head;
+
+		while (fast.next != null && fast.next.next != null) {
+
+			slow = slow.next;
+			fast = fast.next.next;
+
+		}
+
+		return slow.data;
+	}
+
+	public int kthFromLast(int k) {
+
+		Node slow = this.head;
+		Node fast = this.head;
+
+		for (int i = 1; i <= k; i++) {
+			fast = fast.next;
+		}
+
+		while (fast != null) {
+			slow = slow.next;
+			fast = fast.next;
+		}
+
+		return slow.data;
+
+	}
+
+	public void kReverse(int k) throws Exception {
+
+		LinkedList prev = null;
+
+		while (!this.isEmpty()) {
+
+			LinkedList curr = new LinkedList();
+
+			for (int i = 1; i <= k; i++) {
+				curr.addFirst(this.removeFirst());
+			}
+
+			if (prev == null) {
+				prev = curr;
+			} else {
+				prev.tail.next = curr.head;
+				prev.tail = curr.tail;
+				prev.size += curr.size;
+
+			}
+
+		}
+
+		this.head = prev.head;
+		this.tail = prev.tail;
+		this.size = prev.size;
+
+	}
+
+	public void removeDuplicatesSorted() {
+
+	}
+
+	public void createDummyList() throws Exception {
+
+		Node n1 = new Node();
+		Node n2 = new Node();
+		Node n3 = new Node();
+		Node n4 = new Node();
+		Node n5 = new Node();
+		
+		n1.next = n2 ;
+		n2.next = n3 ;
+		n3.next = n4 ;
+		n4.next = n5 ;
+		
+		n5.next = getNodeAt(3) ;
+		
+		
+
+	}
 }

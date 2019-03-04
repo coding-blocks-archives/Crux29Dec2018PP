@@ -12,6 +12,14 @@ public class LinkedList {
 	private class Node {
 		int data;
 		Node next;
+
+		public Node(int data) {
+			this.data = data;
+		}
+
+		public Node() {
+			// TODO Auto-generated constructor stub
+		}
 	}
 
 	private Node head;
@@ -458,6 +466,21 @@ public class LinkedList {
 		return slow.data;
 	}
 
+	private Node midNode() {
+
+		Node slow = this.head;
+		Node fast = this.head;
+
+		while (fast.next != null && fast.next.next != null) {
+
+			slow = slow.next;
+			fast = fast.next.next;
+
+		}
+
+		return slow;
+	}
+
 	public int kthFromLast(int k) {
 
 		Node slow = this.head;
@@ -511,20 +534,132 @@ public class LinkedList {
 
 	public void createDummyList() throws Exception {
 
-		Node n1 = new Node();
-		Node n2 = new Node();
-		Node n3 = new Node();
-		Node n4 = new Node();
-		Node n5 = new Node();
-		
-		n1.next = n2 ;
-		n2.next = n3 ;
-		n3.next = n4 ;
-		n4.next = n5 ;
-		
-		n5.next = getNodeAt(3) ;
-		
-		
+		Node n1 = new Node(10);
+		Node n2 = new Node(20);
+		Node n3 = new Node(30);
+		Node n4 = new Node(40);
+		Node n5 = new Node(50);
+		Node n6 = new Node(60);
+
+		n1.next = n2;
+		n2.next = n3;
+		n3.next = n4;
+		n4.next = n5;
+		n5.next = n6;
+		n6.next = n3;
+
+		// n5.next = getNodeAt(3);
+
+		this.head = n1;
 
 	}
+
+	public LinkedList mergeTwoSortedLL(LinkedList other) {
+
+		LinkedList merged = new LinkedList();
+
+		Node ttemp = this.head;
+		Node otemp = other.head;
+
+		while (ttemp != null && otemp != null) {
+
+			if (ttemp.data < otemp.data) {
+				merged.addLast(ttemp.data);
+				ttemp = ttemp.next;
+			} else {
+				merged.addLast(otemp.data);
+				otemp = otemp.next;
+			}
+
+		}
+
+		if (ttemp == null) {
+			while (otemp != null) {
+				merged.addLast(otemp.data);
+				otemp = otemp.next;
+			}
+		}
+
+		if (otemp == null) {
+			while (ttemp != null) {
+				merged.addLast(ttemp.data);
+				ttemp = ttemp.next;
+			}
+		}
+
+		return merged;
+
+	}
+
+	public void mergeSort() {
+
+		if (this.size == 1) {
+			return;
+		}
+
+		Node mid = midNode();
+		Node midn = mid.next;
+
+		LinkedList fh = new LinkedList();
+
+		fh.head = this.head;
+		fh.tail = mid;
+		fh.tail.next = null;
+		fh.size = (this.size + 1) / 2;
+
+		LinkedList sh = new LinkedList();
+
+		sh.head = midn;
+		sh.tail = this.tail;
+		sh.tail.next = null;
+		sh.size = this.size / 2;
+
+		fh.mergeSort();
+		sh.mergeSort();
+
+		LinkedList sorted = fh.mergeTwoSortedLL(sh);
+
+		this.head = sorted.head;
+		this.tail = sorted.tail;
+
+	}
+
+	public boolean detectRemoveLoop() {
+
+		Node slow = this.head;
+		Node fast = this.head;
+
+		while (fast != null && fast.next != null) {
+
+			slow = slow.next;
+			fast = fast.next.next;
+
+			if (slow == fast) {
+				break;
+			}
+
+		}
+
+		if (slow == fast) {
+
+			// cycle removal
+			Node start = this.head;
+			Node loop = slow;
+
+			while (start.next != loop.next && loop.next != head) {
+
+				start = start.next;
+				loop = loop.next;
+
+			}
+
+			loop.next = null;
+
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
 }

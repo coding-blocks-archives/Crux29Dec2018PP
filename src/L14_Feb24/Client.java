@@ -59,5 +59,14 @@ public class Client {
 		list.addLast(0);
 		list.display();
 
+		list.mergeSort();
+
+		list.display();
+
+		// list.createDummyList();
+
+		System.out.println(list.detectRemoveLoop());
+		list.display();
+
 	}
 }

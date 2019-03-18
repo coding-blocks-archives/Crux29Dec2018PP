@@ -13,19 +13,19 @@ public class BackTracking {
 
 	public static void main(String[] args) {
 
-		// QueenPermutation(new boolean[4], 0, 2, "");
+		 QueenPermutation(new boolean[4], 0, 3, "");
 		// QueenCombination(new boolean[4], 0, 2, "", -1);
 		// CoinChange(new int[] { 2, 3, 5, 6 }, 10, "", 0);
 		// QueenBoxRespect(new boolean[4], 0, 0, 2, "");
 		// Queen2DCombination(new boolean[4][4], 0, 0, 0, 3, "");
 		// NKnights(new boolean[4][4], 0, 0, 0, 4, "");
 
-		int[][] board = new int[8][8];
-		board[0][0] = 1;
-
-		boolean res = KnightsTour(board, 2, 0, 0);
-		display(board);
-		System.out.println(res);
+		// int[][] board = new int[8][8];
+		// board[0][0] = 1;
+		//
+		// boolean res = KnightsTour(board, 2, 0, 0);
+		// display(board);
+		// System.out.println(res);
 
 		// String str = "blolbll";
 		// WordBreakPalindrome(str, 0, str.length() - 1, "");

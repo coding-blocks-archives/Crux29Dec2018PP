@@ -1,13 +1,17 @@
-package Assignments.Feb23 ;
+package Assignments.Feb23;
+
+import java.util.Scanner;
 
 public class Kswaps {
 
 	public static void main(String[] args) {
 
-		String str = "129814999";
+		Scanner scn = new Scanner(System.in);
+
+		String str = scn.next();
 		char[] arr = str.toCharArray();
 
-		System.out.println(BiggestNum(arr, 4));
+		System.out.println(BiggestNum(arr, scn.nextInt()));
 
 	}
 

@@ -1,5 +1,7 @@
 package Assignments.March7;
 
+import java.util.Scanner;
+
 /**
  * @author Garima Chhikara
  * @email garima.chhikara@codingblocks.com
@@ -13,13 +15,28 @@ public class KSwaps {
 
 	public static void main(String[] args) {
 
-		int[] arr = { 2, 6, 3, 1 };
-		KSwaps(arr, 2);
+		Scanner scn = new Scanner(System.in);
+
+		// take char array instead of int array
+		char[] arr = scn.next().toCharArray();
+		int k = scn.nextInt();
+
+		KSwaps(arr, k);
+
+		if (ans == 0) {
+			calculateMax(arr);
+		}
 
 		System.out.println(ans);
+
 	}
 
-	public static void KSwaps(int[] arr, int k) {
+	public static void KSwaps(char[] arr, int k) {
+
+		// base case is imp
+		if (k == 0) {
+			return;
+		}
 
 		for (int i = 0; i <= arr.length - 2; i++) {
 
@@ -41,21 +58,16 @@ public class KSwaps {
 
 	}
 
-	public static void swap(int[] arr, int i, int j) {
+	public static void swap(char[] arr, int i, int j) {
 
-		int temp = arr[i];
+		char temp = arr[i];
 		arr[i] = arr[j];
 		arr[j] = temp;
 	}
 
-	public static void calculateMax(int[] arr) {
+	public static void calculateMax(char[] arr) {
 
-		String pans = "";
-
-		for (int i = 0; i < arr.length; i++) {
-			pans += arr[i];
-		}
-
-		ans = Math.max(ans, Integer.parseInt(pans));
+		String pval = new String(arr);
+		ans = Math.max(ans, Integer.parseInt(pval));
 	}
 }

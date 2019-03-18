@@ -68,6 +68,30 @@ public class BinaryTree {
 
 	private Node construct(int[] pre, int plo, int phi, int[] in, int ilo, int ihi) {
 
+		if (plo > phi || ilo > ihi) {
+			return null;
+		}
+
+		// create a new node
+		Node nn = new Node();
+		nn.data = pre[plo];
+
+		// search plo in inorder
+		int si = -1;
+
+		for (int i = ilo; i <= ihi; i++) {
+			if (pre[plo] == in[i]) {
+				si = i;
+				break;
+			}
+		}
+
+		int nel = si - ilo;
+
+		nn.left = construct(pre, plo + 1, plo + nel, in, ilo, si - 1);
+		nn.right = construct(pre, plo + nel + 1, phi, in, si + 1, ihi);
+
+		return nn;
 	}
 
 	public void display() {
@@ -356,6 +380,41 @@ public class BinaryTree {
 
 		}
 		System.out.println();
+
+	}
+
+	private class BSTPair {
+		boolean isBST = true;
+		int max = Integer.MIN_VALUE;
+		int min = Integer.MAX_VALUE;
+	}
+
+	public boolean isTreeBST() {
+		return isTreeBST(this.root).isBST;
+	}
+
+	private BSTPair isTreeBST(Node node) {
+
+		if (node == null) {
+			BSTPair bp = new BSTPair();
+			return bp;
+		}
+
+		BSTPair lp = isTreeBST(node.left);
+		BSTPair rp = isTreeBST(node.right);
+
+		BSTPair sp = new BSTPair();
+
+		if (lp.isBST && rp.isBST && node.data > lp.max && node.data < rp.min) {
+			sp.isBST = true;
+		} else {
+			sp.isBST = false;
+		}
+
+		sp.max = Math.max(node.data, Math.max(lp.max, rp.max));
+		sp.min = Math.min(node.data, Math.min(lp.min, rp.min));
+
+		return sp;
 
 	}
 

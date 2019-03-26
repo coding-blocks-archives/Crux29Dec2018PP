@@ -2,6 +2,7 @@ package L20_March23;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * @author Garima Chhikara
@@ -14,12 +15,16 @@ public class HashMapOps {
 
 	public static void main(String[] args) {
 
-		System.out.println(highestFreqChar("aaaabaacccdefcccccccccccc"));
+		// System.out.println(highestFreqChar("aaaabaacccdefcccccccccccc"));
+		//
+		// int[] one = { 2, 10, 3, 3, 1, 2, 5, 10, 10, 20 };
+		// int[] two = { 2, 15, 16, 3, 3, 5, 5, 10, 15 };
+		//
+		// System.out.println(intersection(one, two));
 
-		int[] one = { 2, 10, 3, 3, 1, 2, 5, 10, 10, 20 };
-		int[] two = { 2, 15, 16, 3, 3, 5, 5, 10, 15 };
+		int[] arr = { 2, 12, 9, 16, 10, 5, 3, 20, 25, 11, 1, 8, 6, 4 };
 
-		System.out.println(intersection(one, two));
+		longestConsecutiveSeq(arr);
 	}
 
 	public static char highestFreqChar(String str) {
@@ -104,4 +109,58 @@ public class HashMapOps {
 		return ans;
 
 	}
+
+	public static void longestConsecutiveSeq(int[] arr) {
+
+		HashMap<Integer, Boolean> map = new HashMap<>();
+
+		for (int i = 0; i < arr.length; i++) {
+
+			int val = arr[i];
+
+			if (map.containsKey(val - 1)) {
+				map.put(val, false);
+			} else {
+				map.put(val, true);
+			}
+
+			if (map.containsKey(val + 1)) {
+				map.put(val + 1, false);
+			}
+
+		}
+
+		int maxCount = 0;
+		int startingSeq = 0;
+		
+		ArrayList<Integer> keys = new ArrayList<>(map.keySet()) ;
+		
+		for (int i =0 ; i < keys.size() ; i++) {
+
+			int key = keys.get(i) ;
+			
+			// check only the elements which are starting of a seq
+			if (map.containsKey(key) && map.get(key)) {
+
+				int count = 0;
+
+				while (map.containsKey(key + count)) {
+					count++;
+				}
+
+				if (count > maxCount) {
+					maxCount = count;
+					startingSeq = key;
+				}
+
+			}
+
+		}
+
+		for (int i = 0; i < maxCount; i++) {
+			System.out.println(startingSeq + i);
+		}
+
+	}
+
 }

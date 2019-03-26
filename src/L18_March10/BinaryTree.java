@@ -1,5 +1,9 @@
 package L18_March10;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -415,6 +419,80 @@ public class BinaryTree {
 		sp.min = Math.min(node.data, Math.min(lp.min, rp.min));
 
 		return sp;
+
+	}
+
+	private class VOPair implements Comparable<VOPair> {
+
+		int data;
+		int vd;
+		int hd;
+
+		@Override
+		public String toString() {
+			return this.data + "";
+		}
+
+		@Override
+		public int compareTo(VOPair o) {
+			return this.hd - o.hd;
+		}
+	}
+
+	public void verticalDisplay() {
+
+		HashMap<Integer, ArrayList<VOPair>> map = new HashMap<>();
+		verticalDisplay(this.root, map, 0, 0);
+
+		ArrayList<Integer> keys = new ArrayList<>(map.keySet());
+		Collections.sort(keys);
+
+		for (int key : keys) {
+
+			ArrayList<VOPair> list = map.get(key);
+			// Collections.sort(list, new VOPairComparator());
+			Collections.sort(list);
+
+			System.out.println(key + "->" + list);
+		}
+	}
+
+	private void verticalDisplay(Node node, HashMap<Integer, ArrayList<VOPair>> map, int vDist, int hDist) {
+
+		if (node == null) {
+			return;
+		}
+
+		VOPair np = new VOPair();
+		np.data = node.data;
+		np.hd = hDist;
+		np.vd = vDist;
+
+		if (!map.containsKey(vDist)) {
+			map.put(vDist, new ArrayList<>());
+		}
+
+		map.get(vDist).add(np);
+
+		verticalDisplay(node.left, map, vDist - 1, hDist + 1);
+		verticalDisplay(node.right, map, vDist + 1, hDist + 1);
+	}
+
+	private class VOPairComparator implements Comparator<VOPair> {
+
+		@Override
+		public int compare(VOPair o1, VOPair o2) {
+			return o1.hd - o2.hd;
+		}
+
+	}
+
+	private class IntegerComparator implements Comparator<Integer> {
+
+		@Override
+		public int compare(Integer o1, Integer o2) {
+			return o2.intValue() - o1.intValue();
+		}
 
 	}
 

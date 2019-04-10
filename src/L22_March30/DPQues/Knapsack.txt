@@ -1,0 +1,5 @@
+Given weights and prices of n items, put these items in a knapsack of capacity W to get the maximum total profit in the knapsack. 
+
+In other words, given two integer arrays price[0..n-1] and wt[0..n-1] which represent price and weights associated with n items respectively. Also given an integer W which represents knapsack capacity, find out the maximum profit subset of price[] such that sum of the weights of this subset is smaller than or equal to W. 
+
+You cannot break an item, either pick the complete item, or don't pick it (0-1 property).

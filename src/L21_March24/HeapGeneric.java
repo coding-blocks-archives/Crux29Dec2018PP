@@ -90,4 +90,8 @@ public class HeapGeneric<T extends Comparable<T>> {
 		return t.compareTo(o);
 	}
 
+	public int size() {
+		return this.data.size();
+	}
+
 }

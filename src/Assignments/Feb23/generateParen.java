@@ -1,18 +1,20 @@
-package Assignments.Feb23 ;
+package Assignments.Feb23;
 
 public class generateParen {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		generate_dummy(6, 0, 0, "");
+		generate(6, 0, 0, "");
 
 	}
+
+	static int count = 0;
 
 	public static void generate(int n, int open, int close, String asf) {
 
 		if (open == n && close == n) {
-			System.out.println(asf);
+			System.out.println(++count + " " + asf);
 			return;
 		}
 

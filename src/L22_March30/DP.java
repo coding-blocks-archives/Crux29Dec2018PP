@@ -92,8 +92,13 @@ public class DP {
 
 		// int[] arr = { 0, 3, 5, 8, 9, 10, 17, 17, 20 };
 
-		System.out.println(RodCutTD(arr, arr.length - 1, new int[arr.length]));
-		System.out.println(RodCutBU(arr, arr.length - 1));
+		// System.out.println(RodCutTD(arr, arr.length - 1, new int[arr.length]));
+		// System.out.println(RodCutBU(arr, arr.length - 1));
+
+		// for (int i = 1; i <= 10; i++) {
+		// System.out.println(catalanNumber(1000, new int[1001]));
+		System.out.println(catalanNumberBU(100000));
+		// }
 
 		long end = System.currentTimeMillis();
 
@@ -953,6 +958,45 @@ public class DP {
 			}
 
 			strg[i] = max;
+
+		}
+
+		return strg[n];
+	}
+
+	public static int catalanNumber(int n, int[] strg) {
+
+		if (n <= 1) {
+			return 1;
+		}
+
+		if (strg[n] != 0) {
+			return strg[n];
+		}
+
+		int ans = 0;
+
+		for (int i = 1; i <= n; i++) {
+			ans += catalanNumber(i - 1, strg) * catalanNumber(n - i, strg);
+		}
+
+		strg[n] = ans;
+		return ans;
+	}
+
+	public static int catalanNumberBU(int n) {
+
+		int[] strg = new int[n + 1];
+		strg[0] = strg[1] = 1;
+
+		for (int i = 2; i <= n; i++) {
+
+			int ans = 0;
+			for (int j = 1; j <= i; j++) {
+				ans += strg[j - 1] * strg[i - j];
+			}
+
+			strg[i] = ans;
 
 		}
 

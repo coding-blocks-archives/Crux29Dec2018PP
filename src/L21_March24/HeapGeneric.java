@@ -1,6 +1,7 @@
 package L21_March24;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * @author Garima Chhikara
@@ -11,11 +12,14 @@ import java.util.ArrayList;
 
 public class HeapGeneric<T extends Comparable<T>> {
 
+	HashMap<T, Integer> map = new HashMap<>(); // prims
+
 	ArrayList<T> data = new ArrayList<>();
 
 	public void add(T item) {
 
 		data.add(item);
+		map.put(item, data.size() - 1); // prims
 		upheapify(data.size() - 1);
 
 	}
@@ -39,12 +43,16 @@ public class HeapGeneric<T extends Comparable<T>> {
 		data.set(i, jth);
 		data.set(j, ith);
 
+		map.put(ith, j); // prims
+		map.put(jth, i); // prims
+
 	}
 
 	public T remove() {
 
 		swap(0, data.size() - 1);
 		T temp = data.remove(data.size() - 1);
+		map.remove(temp); // prims
 		downheapify(0);
 		return temp;
 
@@ -92,6 +100,24 @@ public class HeapGeneric<T extends Comparable<T>> {
 
 	public int size() {
 		return this.data.size();
+	}
+
+	public void updatePriority(T t) {
+
+		// n
+		// int si = -1;
+		//
+		// for (int i = 0; i < data.size(); i++) {
+		// if (data.get(i) == t) {
+		// si = i;
+		// break;
+		// }
+		// }
+
+		int si = map.get(t);
+
+		upheapify(si);
+
 	}
 
 }

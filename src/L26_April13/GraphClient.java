@@ -22,19 +22,21 @@ public class GraphClient {
 		graph.addVertex("F");
 		graph.addVertex("G");
 
-		graph.addEdge("A", "B", 10);
-		graph.addEdge("A", "D", 2);
-		graph.addEdge("B", "C", 6);
-		graph.addEdge("C", "D", 8);
-		graph.addEdge("D", "E", 1);
-		graph.addEdge("E", "F", 90);
-		graph.addEdge("F", "G", 78);
-		graph.addEdge("E", "G", 45);
+		graph.addEdge("A", "B", 2);
+		graph.addEdge("A", "D", 6);
+		graph.addEdge("B", "C", 3);
+		graph.addEdge("C", "D", 1);
+		graph.addEdge("D", "E", 8);
+		graph.addEdge("E", "F", 5);
+		graph.addEdge("F", "G", 1);
+		graph.addEdge("E", "G", 7);
 
 		// graph.display();
-		System.out.println(graph);
+		// System.out.println(graph);
 
 		// graph.removeEdge("D", "E");
+		// graph.removeEdge("B", "C");
+		// graph.removeEdge("F", "G");
 		// graph.removeVertex("A");
 		graph.display();
 		System.out.println(graph.numEdges());
@@ -43,11 +45,20 @@ public class GraphClient {
 
 		// graph.printAllPaths("A", "F", new HashMap<>(), "A");
 
-		System.out.println(graph.bfs("A", "F"));
-		System.out.println(graph.dfs("A", "F"));
+		// System.out.println(graph.bfs("A", "F"));
+		// System.out.println(graph.dfs("A", "F"));
+		//
+		// graph.bft();
+		// graph.dft();
 
-		graph.bft();
-		graph.dft();
+		// System.out.println(graph.isCyclic());
+		// System.out.println(graph.isConnected());
+		// System.out.println(graph.isTree());
+		// System.out.println(graph.getCC());
+		//
+		// System.out.println(graph.bipartite());
+
+		graph.prims().display();
 
 	}
 }

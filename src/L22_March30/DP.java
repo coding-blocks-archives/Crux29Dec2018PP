@@ -53,11 +53,11 @@ public class DP {
 		// System.out.println(MCMTD(arr, 0, arr.length - 1, new
 		// int[arr.length][arr.length]));
 
-		int[] arr = new int[100];
-
-		for (int i = 0; i < arr.length; i++) {
-			arr[i] = i + 1;
-		}
+		// int[] arr = new int[100];
+		//
+		// for (int i = 0; i < arr.length; i++) {
+		// arr[i] = i + 1;
+		// }
 		// int[] arr = { 2, 3, 5, 1, 4, 8, 9, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
 		// System.out.println(WineProblem(arr, 0, arr.length - 1, 1));
@@ -99,6 +99,25 @@ public class DP {
 		// System.out.println(catalanNumber(1000, new int[1001]));
 		System.out.println(catalanNumberBU(100000));
 		// }
+
+		String str = "ndvbjhcgvuidhfjhgdfhduvhfeu";
+		// System.out.println(PalindromePartitioning(str, 0, str.length() - 1));
+		// System.out.println(PalindromePartitioningBU(str));
+
+		int[] arr = { 50, 3, 10, 7, 40, 80, 1 };
+		// System.out.println(LISBU(arr));
+
+		// for (int i = 0; i < arr.length; i++) {
+		// System.out.println(LIS(arr, i));
+		// }
+
+		int[] coins = { 2, 5, 3, 6 };
+
+		// System.out.println(CoinChange(coins, 10, 0));
+		// System.out.println(coinChange(coins, 10));
+
+		int[] arrr = { 5, 3, 5, 8, 9, 2, 6, 7, 6, 8, 9 };
+		System.out.println(minJumps(arrr, 0));
 
 		long end = System.currentTimeMillis();
 
@@ -1001,6 +1020,206 @@ public class DP {
 		}
 
 		return strg[n];
+	}
+
+	// Palindrome Prtitioning
+	public static int PalindromePartitioning(String str, int si, int ei) {
+
+		if (isPalindrome(str, si, ei)) {
+			return 0;
+		}
+
+		int min = Integer.MAX_VALUE;
+
+		for (int k = si; k <= ei - 1; k++) {
+
+			int fh = PalindromePartitioning(str, si, k);
+			int sh = PalindromePartitioning(str, k + 1, ei);
+
+			int ans = fh + sh + 1;
+
+			if (ans < min) {
+				min = ans;
+			}
+
+		}
+
+		return min;
+
+	}
+
+	public static boolean isPalindrome(String str, int si, int ei) {
+
+		int left = si;
+		int right = ei;
+
+		while (left < right) {
+
+			if (str.charAt(left) != str.charAt(right)) {
+				return false;
+			}
+
+			left++;
+			right--;
+		}
+
+		return true;
+	}
+
+	public static int PalindromePartitioningBU(String str) {
+
+		int n = str.length();
+
+		int[][] strg = new int[n][n];
+
+		for (int slide = 0; slide <= n - 1; slide++) {
+
+			for (int si = 0; si <= n - slide - 1; si++) {
+
+				int ei = si + slide;
+
+				if (isPalindrome(str, si, ei)) {
+					strg[si][ei] = 0;
+				} else {
+					int min = Integer.MAX_VALUE;
+
+					for (int k = si; k <= ei - 1; k++) {
+
+						int fh = strg[si][k];
+						int sh = strg[k + 1][ei];
+
+						int ans = fh + sh + 1;
+
+						if (ans < min) {
+							min = ans;
+						}
+
+					}
+
+					strg[si][ei] = min;
+				}
+
+			}
+
+		}
+
+		return strg[0][n - 1];
+
+	}
+
+	public static int LISBU(int[] arr) {
+
+		int ans = Integer.MIN_VALUE;
+
+		int[] strg = new int[arr.length];
+
+		for (int i = 0; i < strg.length; i++) {
+
+			strg[i] = 1;
+
+			for (int j = 0; j < i; j++) {
+
+				if (arr[j] < arr[i]) {
+					strg[i] = Math.max(strg[i], strg[j] + 1);
+				}
+
+			}
+
+			ans = Math.max(ans, strg[i]);
+
+		}
+
+		return ans;
+
+	}
+
+	public static int LIS(int[] arr, int idx) {
+
+		int ans = 1;
+
+		for (int i = idx + 1; i < arr.length; i++) {
+
+			if (arr[i] > arr[idx]) {
+				ans = Math.max(ans, LIS(arr, i) + 1);
+			}
+		}
+
+		return ans;
+	}
+
+	public static int LIS2(int[] arr, int prev, int curr) {
+
+		if (curr == arr.length) {
+			return 0;
+		}
+
+		int inc = 0, exc = 0;
+
+		if (prev == -1 || arr[curr] > arr[prev]) {
+			inc = LIS2(arr, curr, curr + 1) + 1;
+		}
+		exc = LIS2(arr, prev, curr + 1);
+
+		return Math.max(inc, exc);
+	}
+
+	public static int CoinChange(int[] arr, int amount, int vidx) {
+
+		if (amount == 0) {
+			return 1;
+		}
+
+		if (amount < 0 || vidx == arr.length) {
+			return 0;
+		}
+
+		int i = CoinChange(arr, amount - arr[vidx], vidx); // include
+		int e = CoinChange(arr, amount, vidx + 1); // exclude
+
+		return i + e;
+
+	}
+
+	public static int CoinChange(int[] arr, int amount) {
+
+		int[] strg = new int[amount + 1];
+
+		strg[0] = 1;
+
+		for (int coin : arr) {
+
+			for (int i = coin; i < strg.length; i++) {
+
+				strg[i] += strg[i - coin];
+			}
+
+		}
+
+		return strg[amount];
+	}
+
+	public static int minJumps(int[] arr, int vidx) {
+
+		if (vidx == arr.length - 1) {
+			return 0;
+		}
+
+		if (vidx >= arr.length) {
+			return Integer.MAX_VALUE;
+		}
+
+		int ans = Integer.MAX_VALUE;
+
+		for (int i = 1; i <= arr[vidx]; i++) {
+			int rr = minJumps(arr, vidx + i);
+
+			if (rr != Integer.MAX_VALUE) {
+				ans = Math.min(ans, rr + 1);
+			}
+		}
+
+		return ans;
+
 	}
 
 }

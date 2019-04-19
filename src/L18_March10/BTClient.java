@@ -25,18 +25,20 @@ public class BTClient {
 		int[] in = { 80, 40, 90, 190, 160, 20, 50, 10, 100, 60, 130, 120, 140, 30, 70 };
 		BinaryTree bt = new BinaryTree(pre, in);
 		bt.display();
-		System.out.println(bt.size());
-		System.out.println(bt.max());
-		System.out.println(bt.ht());
-		System.out.println(bt.find(50));
-		System.out.println(bt.diameter());
-		System.out.println(bt.diameter2());
+		// System.out.println(bt.size());
+		// System.out.println(bt.max());
+		// System.out.println(bt.ht());
+		// System.out.println(bt.find(50));
+		// System.out.println(bt.diameter());
+		// System.out.println(bt.diameter2());
+		//
+		// System.out.println(bt.isBalanced());
+		//
+		// bt.preorder();
+		// bt.preorderI();
+		//
+		// bt.verticalDisplay();
 
-		System.out.println(bt.isBalanced());
-
-		bt.preorder();
-		bt.preorderI();
-
-		bt.verticalDisplay();
+		bt.kFar(3, 20);
 	}
 }
